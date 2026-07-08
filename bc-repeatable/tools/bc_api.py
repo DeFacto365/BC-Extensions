@@ -127,11 +127,12 @@ def picture_file(args):
 
 def attach_item_picture(token, company_guid, item_guid, file_path):
     picture_url = f"{api_root()}/companies({company_guid})/items({item_guid})/picture"
-    picture = request("POST", picture_url, token, {})
+    picture = request("GET", picture_url, token)
     edit_link = (
         picture.get("pictureContent@odata.mediaEditLink")
         or picture.get("content@odata.mediaEditLink")
         or picture.get("pictureContent@odata.editLink")
+        or f"{picture_url}/pictureContent"
     )
     if not edit_link:
         raise SystemExit(f"Picture created but no media edit link was returned:\n{json.dumps(picture, indent=2)}")
@@ -208,6 +209,10 @@ def create_item(args):
         payload["itemTrackingCode"] = args.item_tracking_code
     if args.serial_nos:
         payload["serialNos"] = args.serial_nos
+    if args.unit_cost is not None:
+        payload["unitCost"] = args.unit_cost
+    if args.profit_percent is not None:
+        payload["profitPercent"] = args.profit_percent
     if args.vendor_no and not args.no_vendor:
         payload["vendorNo"] = args.vendor_no
     if args.number:
@@ -226,6 +231,10 @@ def create_item(args):
     if item_number and item_id:
         patch_url = f"{url}({item_id})"
         patch_payload = {"unitPrice": args.unit_price}
+        if args.unit_cost is not None:
+            patch_payload["unitCost"] = args.unit_cost
+        if args.profit_percent is not None:
+            patch_payload["profitPercent"] = args.profit_percent
         if args.vendor_no and not args.no_vendor:
             patch_payload["vendorItemNo"] = item_number
         if args.marketing_text:
@@ -297,6 +306,8 @@ def main():
     item.add_argument("--rescheduling-period", default="1D")
     item.add_argument("--item-tracking-code")
     item.add_argument("--serial-nos")
+    item.add_argument("--unit-cost", type=float)
+    item.add_argument("--profit-percent", type=float)
     item.add_argument("--attribute", action="append", default=[])
     item.add_argument("--picture-url")
     item.add_argument("--picture-path")

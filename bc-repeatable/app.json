@@ -2,7 +2,7 @@
   "id": "6f9510cf-f59e-469a-b20a-e0b99f3c1118",
   "name": "Codex BC Automation",
   "publisher": "Codex",
-  "version": "1.0.0.1",
+  "version": "1.0.0.2",
   "brief": "API helpers for repeatable Codex Business Central record setup.",
   "description": "Exposes focused API pages for repeatable record creation by Codex.",
   "privacyStatement": "",

@@ -84,9 +84,17 @@ page 50100 "Codex Item API"
                 {
                     Caption = 'Unit Price';
                 }
+                field(unitCost; Rec."Unit Cost")
+                {
+                    Caption = 'Unit Cost';
+                }
                 field(priceProfitCalculation; Rec."Price/Profit Calculation")
                 {
                     Caption = 'Price/Profit Calculation';
+                }
+                field(profitPercent; Rec."Profit %")
+                {
+                    Caption = 'Profit %';
                 }
                 field(genProdPostingGroup; Rec."Gen. Prod. Posting Group")
                 {
