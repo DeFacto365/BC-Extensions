@@ -2,6 +2,16 @@
 
 This folder is the repeatable path for Codex-created Business Central records.
 
+## Environment URL
+
+Default Business Central environment:
+
+- Base URL: `https://businesscentral.dynamics.com/eb4005a6-4bc1-41d0-93be-6595f1a5bc80/BCDemoG`
+- Full URL pattern: `https://businesscentral.dynamics.com/eb4005a6-4bc1-41d0-93be-6595f1a5bc80/BCDemoG?company={companyName}`
+- Default company: `G7`
+
+For future demos, the user may provide only the BC company name, such as `G8`. Build the full BC URL by replacing only the `company=` query parameter.
+
 ## One-time setup
 
 1. Publish the AL extension in this folder to `BCDemoG`.
