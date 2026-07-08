@@ -20,6 +20,8 @@ Default BC environment:
 
 For repeatable record creation, prefer `C:\Github\BC Extensions\bc-repeatable` over browser UI.
 
+Use Firecrawl for prospect/product website scraping when preparing demos. `FIRECRAWL_API_KEY` is stored in the Windows user environment, not in Git. Save durable scraped content, product images, and source notes under `demos/{ProspectOrCompanyName}/`; use `.firecrawl/` only for ignored scratch output.
+
 Before compiling or publishing the AL extension, refresh Business Central symbols unattended:
 
 ```powershell
