@@ -1,0 +1,16 @@
+.bc-doc-cache/
+**/__pycache__/
+*.pyc
+
+# Business Central generated artifacts
+**/.alpackages/
+**/.output/
+*.app
+*.rad
+*.snap
+
+# Local diagnostic/output files
+*.log
+*.err.log
+bc-repeatable/*.png
+bc-repeatable/.perm-inspect/

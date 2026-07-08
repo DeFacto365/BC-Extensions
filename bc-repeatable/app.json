@@ -1,0 +1,30 @@
+{
+  "id": "6f9510cf-f59e-469a-b20a-e0b99f3c1118",
+  "name": "Codex BC Automation",
+  "publisher": "Codex",
+  "version": "1.0.0.1",
+  "brief": "API helpers for repeatable Codex Business Central record setup.",
+  "description": "Exposes focused API pages for repeatable record creation by Codex.",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "",
+  "logo": "",
+  "dependencies": [],
+  "screenshots": [],
+  "platform": "26.0.0.0",
+  "application": "26.0.0.0",
+  "idRanges": [
+    {
+      "from": 50100,
+      "to": 50149
+    }
+  ],
+  "resourceExposurePolicy": {
+    "allowDebugging": true,
+    "allowDownloadingSource": true,
+    "includeSourceInSymbolFile": true
+  },
+  "runtime": "15.0",
+  "target": "Cloud"
+}

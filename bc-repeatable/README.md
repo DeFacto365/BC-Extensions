@@ -1,0 +1,80 @@
+# BC Repeatable Automation
+
+This folder is the repeatable path for Codex-created Business Central records.
+
+## One-time setup
+
+1. Publish the AL extension in this folder to `BCDemoG`.
+2. Create a Microsoft Entra app for service-to-service auth.
+3. Grant it Dynamics 365 Business Central `API.ReadWrite.All`.
+4. In Business Central, add the app on the `Microsoft Entra Applications` page.
+5. Assign permission set `CODEX AUTOMATION`.
+
+Microsoft documents that Business Central APIs use OAuth bearer tokens, and S2S API calls use scope `https://api.businesscentral.dynamics.com/.default`.
+
+## Create an item
+
+```powershell
+$env:BC_CLIENT_ID = '<client id>'
+$env:BC_CLIENT_SECRET = '<client secret>'
+
+& 'C:\Users\jack_\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe' `
+  'C:\Github\BC Extensions\bc-repeatable\tools\bc_api.py' `
+  create-item --company G7 --description Test --shelf-no "Prospect Name" --unit-price 100 --uom PCS --replenishment Purchase
+```
+
+Attach a picture when available:
+
+```powershell
+& 'C:\Users\jack_\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe' `
+  'C:\Github\BC Extensions\bc-repeatable\tools\bc_api.py' `
+  create-item --company G7 --description "Metal Implant Bar" --shelf-no "Panthera" --unit-price 100 --uom PCS --replenishment Purchase --picture-path "C:\path\metal-implant-bar.jpg"
+```
+
+In the Business Central web client, attach a picture from an item card with `Picture` > `Import` after saving the webpage product image locally.
+
+In the Business Central web client, assign Marketing Text from an item card with Marketing Text `Edit`, then paste concise product text from the webpage.
+
+Add Marketing Text when available:
+
+```powershell
+& 'C:\Users\jack_\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe' `
+  'C:\Github\BC Extensions\bc-repeatable\tools\bc_api.py' `
+  create-item --company G7 --number MIB-DOLDER-TI --description "Metal Implant Bar - Dolder - Ti" --shelf-no "Panthera" --unit-price 100 --uom PCS --replenishment Purchase --item-category-code METAL-BAR --marketing-text "Unrivaled`n`nOur bar is compatible with the vast majority of known implants, of course, but also with those of emerging and foreign companies. Offered with the longest warranty on the market, this product is simply unrivaled in the industry. Forget standardized bars: the Panthera Dental metallic bar is customized to satisfy the needs of your patients."
+```
+
+## Create an item attribute
+
+```powershell
+& 'C:\Users\jack_\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe' `
+  'C:\Github\BC Extensions\bc-repeatable\tools\bc_api.py' `
+  create-item-attribute --company G7 --name "Available materials and finish types" --type Option --values Ti Co-Cr Silicoating Ionized Sandblast
+```
+
+After this is configured, user instructions can be short:
+
+`In G7 create purchased item "Test" UOM PCS price 100.`
+
+## Item Defaults
+
+At the start of each new prospect/demo chat, capture `prospectName` and `prospectUrl`.
+
+Use `prospectName` as `Shelf No.` on every item created for that prospect. This supports filtering the item list by shelf number later.
+
+Defaults for item cards:
+
+- `Tax Group Code`: `TAXABLE`
+- `Price/Profit Calculation`: `Price=Cost+Profit`
+- `Lead Time Calculation`: `3D`
+- `Vendor No.`: `10000`
+- `Vendor Item No.`: same as the final item number
+- `Reordering Policy`: `Lot-for-Lot`
+- `Lot Accumulation Period`: `1M`
+- `Rescheduling Period`: `1D`
+
+User-provided per item:
+
+- Description/name
+- Unit price
+- Replenishment system
+- UOM when not `PCS`

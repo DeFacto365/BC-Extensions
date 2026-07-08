@@ -1,0 +1,42 @@
+{
+  "company": "G7",
+  "shelfNo": "Panthera",
+  "itemCategoryCode": "METAL-BAR",
+  "sourceUrl": "https://pantheradental.com/products-solutions/metal-implant-bar/",
+  "imageUrl": "https://pantheradental.com/wp-content/uploads/metal_bar_panthera.jpg",
+  "marketingText": "Unrivaled\n\nOur bar is compatible with the vast majority of known implants, of course, but also with those of emerging and foreign companies. Offered with the longest warranty on the market, this product is simply unrivaled in the industry. Forget standardized bars: the Panthera Dental metallic bar is customized to satisfy the needs of your patients.",
+  "itemAttributes": [
+    {
+      "name": "Available materials and finish types",
+      "type": "Option",
+      "values": [
+        "Ti",
+        "Co-Cr",
+        "Silicoating",
+        "Ionized",
+        "Sandblast"
+      ]
+    }
+  ],
+  "itemNumberPattern": "MIB-{barType}-{materialOrFinish}",
+  "descriptionPattern": "Metal Implant Bar - {barType} - {materialOrFinish}",
+  "items": [
+    {
+      "number": "MIB-DOLDER-TI",
+      "description": "Metal Implant Bar - Dolder - Ti"
+    },
+    {
+      "number": "MIB-DOLDER-COCR",
+      "description": "Metal Implant Bar - Dolder - Co-Cr"
+    },
+    {
+      "number": "MIB-DOLDER-SILICOATING",
+      "description": "Metal Implant Bar - Dolder - Silicoating"
+    }
+  ],
+  "missingBeforeCreate": {
+    "unitPrice": null,
+    "replenishment": null,
+    "fullBarTypeAndFinishMatrix": null
+  }
+}

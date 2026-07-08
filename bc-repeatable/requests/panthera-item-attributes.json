@@ -1,0 +1,16 @@
+{
+  "company": "G7",
+  "attributes": [
+    {
+      "name": "Available materials and finish types",
+      "type": "Option",
+      "values": [
+        "Ti",
+        "Co-Cr",
+        "Silicoating",
+        "Ionized",
+        "Sandblast"
+      ]
+    }
+  ]
+}

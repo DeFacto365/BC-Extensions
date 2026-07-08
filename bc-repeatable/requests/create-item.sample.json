@@ -1,0 +1,23 @@
+{
+  "company": "G7",
+  "description": "Test",
+  "shelfNo": "Prospect Name",
+  "unitPrice": 100.0,
+  "uom": "PCS",
+  "replenishment": "Purchase",
+  "vendorNo": "10000",
+  "vendorItemNo": "same as item number after insert",
+  "itemCategoryCode": "",
+  "defaults": {
+    "type": "Inventory",
+    "taxGroupCode": "TAXABLE",
+    "priceProfitCalculation": "Price=Cost+Profit",
+    "leadTimeCalculation": "3D",
+    "costingMethod": "FIFO",
+    "genProdPostingGroup": "RETAIL",
+    "inventoryPostingGroup": "RESALE",
+    "reorderingPolicy": "Lot-for-Lot",
+    "lotAccumulationPeriod": "1M",
+    "reschedulingPeriod": "1D"
+  }
+}
