@@ -1,17 +1,16 @@
 #!/usr/bin/env python3
+import argparse
 import json
 import os
 import subprocess
-import sys
 import time
 import urllib.error
 import urllib.parse
 import urllib.request
 from datetime import datetime, timedelta, timezone
 
-TENANT_ID = "eb4005a6-4bc1-41d0-93be-6595f1a5bc80"
-ENVIRONMENT = "BCDemoG"
-COMPANY = "G7"
+TENANT_ID = os.environ.get("BC_TENANT_ID", "eb4005a6-4bc1-41d0-93be-6595f1a5bc80")
+ENVIRONMENT = os.environ.get("BC_ENVIRONMENT", "BCDemoG")
 BASE_URI = "https://api.businesscentral.dynamics.com"
 GRAPH = "https://graph.microsoft.com/v1.0"
 PUBLIC_CLIENT_ID = "14d82eec-204b-4c2f-b7e8-296a70dab67e"  # Microsoft Graph PowerShell
@@ -160,13 +159,13 @@ def odata_quote(value):
     return "'" + value.replace("'", "''") + "'"
 
 
-def company_id(token):
-    filter_text = f"name eq {odata_quote(COMPANY)}"
+def company_id(token, company_name):
+    filter_text = f"name eq {odata_quote(company_name)}"
     query = urllib.parse.urlencode({"$filter": filter_text}, safe="'")
     url = f"{api_root()}/companies?{query}"
     rows = request("GET", url, token).get("value", [])
     if not rows:
-        raise SystemExit(f"Company not found: {COMPANY}")
+        raise SystemExit(f"Company not found: {company_name}")
     return rows[0]["id"]
 
 
@@ -179,8 +178,8 @@ def get_all(token, url):
     return rows
 
 
-def ensure_bc_application(token, client_id):
-    cid = company_id(token)
+def ensure_bc_application(token, client_id, company_name):
+    cid = company_id(token, company_name)
     apps_url = f"{custom_root()}/companies({cid})/codexAadApplications"
     apps = get_all(token, apps_url)
     app = next((a for a in apps if str(a.get("clientId", "")).lower() == client_id.lower()), None)
@@ -236,7 +235,7 @@ def set_user_env(name, value):
     os.environ[name] = value
 
 
-def test_s2s(client_id, secret):
+def test_s2s(client_id, secret, company_name):
     token = form_request(
         f"https://login.microsoftonline.com/{TENANT_ID}/oauth2/v2.0/token",
         {
@@ -246,13 +245,19 @@ def test_s2s(client_id, secret):
             "scope": f"{BASE_URI}/.default",
         },
     )["access_token"]
-    cid = company_id(token)
+    cid = company_id(token, company_name)
     data = request("GET", f"{custom_root()}/companies({cid})/codexItems?$top=1", token)
     return len(data.get("value", []))
 
 
 def main():
-    skip_bc_registration = "--skip-bc-registration" in sys.argv[1:]
+    parser = argparse.ArgumentParser(description="Configure S2S auth for Business Central automation.")
+    parser.add_argument("--company", default=os.environ.get("BC_COMPANY"), help="Business Central company name, such as G7 or G8.")
+    parser.add_argument("--skip-bc-registration", action="store_true")
+    args = parser.parse_args()
+    if not args.company:
+        raise SystemExit("Set --company or BC_COMPANY. Do not rely on a hard-coded company for demo automation.")
+
     graph_token = device_token(
         [
             "https://graph.microsoft.com/Application.ReadWrite.All",
@@ -264,19 +269,19 @@ def main():
     client_id, secret = ensure_graph_application(graph_token)
     print(f"Created or updated Entra app: {client_id}", flush=True)
 
-    if not skip_bc_registration:
+    if not args.skip_bc_registration:
         bc_token = device_token([f"{BASE_URI}/user_impersonation", "offline_access"], "Business Central")
-        ensure_bc_application(bc_token, client_id)
+        ensure_bc_application(bc_token, client_id, args.company)
 
     set_user_env("BC_TENANT_ID", TENANT_ID)
     set_user_env("BC_ENVIRONMENT", ENVIRONMENT)
-    set_user_env("BC_COMPANY", COMPANY)
+    set_user_env("BC_COMPANY", args.company)
     set_user_env("BC_CLIENT_ID", client_id)
     set_user_env("BC_CLIENT_SECRET", secret)
 
-    test_s2s(client_id, secret)
-    print(json.dumps({"clientId": client_id, "tenantId": TENANT_ID, "environment": ENVIRONMENT, "company": COMPANY, "s2sTest": "ok"}, indent=2))
+    test_s2s(client_id, secret, args.company)
+    print(json.dumps({"clientId": client_id, "tenantId": TENANT_ID, "environment": ENVIRONMENT, "company": args.company, "s2sTest": "ok"}, indent=2))
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main())

@@ -1,10 +1,13 @@
 ﻿import json, os, time, urllib.parse, urllib.request, urllib.error, winreg
-TENANT='eb4005a6-4bc1-41d0-93be-6595f1a5bc80'; ENV='BCDemoG'; COMPANY='G7'; BASE='https://api.businesscentral.dynamics.com'; PUBLIC='14d82eec-204b-4c2f-b7e8-296a70dab67e'
+TENANT=os.environ.get('BC_TENANT_ID','eb4005a6-4bc1-41d0-93be-6595f1a5bc80'); ENV=os.environ.get('BC_ENVIRONMENT','BCDemoG'); COMPANY=os.environ.get('BC_COMPANY'); BASE='https://api.businesscentral.dynamics.com'; PUBLIC='14d82eec-204b-4c2f-b7e8-296a70dab67e'
 key=winreg.OpenKey(winreg.HKEY_CURRENT_USER, r'Environment')
 def env(name):
     try: return winreg.QueryValueEx(key, name)[0]
     except FileNotFoundError: return os.environ.get(name)
 CLIENT=env('BC_CLIENT_ID')
+if not COMPANY: COMPANY=env('BC_COMPANY')
+if not COMPANY:
+    raise SystemExit('Set BC_COMPANY. Do not rely on a hard-coded company for demo automation.')
 def form(url, data):
     req=urllib.request.Request(url,data=urllib.parse.urlencode(data).encode(),headers={'Content-Type':'application/x-www-form-urlencoded'})
     with urllib.request.urlopen(req,timeout=60) as r: return json.loads(r.read().decode())

@@ -15,7 +15,7 @@ Default BC environment:
 
 - Base URL: `https://businesscentral.dynamics.com/eb4005a6-4bc1-41d0-93be-6595f1a5bc80/BCDemoG`
 - Full URL pattern: `https://businesscentral.dynamics.com/eb4005a6-4bc1-41d0-93be-6595f1a5bc80/BCDemoG?company={companyName}`
-- Company: `G7`, unless the user says otherwise.
+- Current company: provided by the user for each demo, for example `G7`.
 - For future demos, the user may provide only the BC company name, such as `G8`. Build the full BC URL by replacing only the `company=` query parameter.
 
 For repeatable record creation, prefer `C:\Github\BC Extensions\bc-repeatable` over browser UI.

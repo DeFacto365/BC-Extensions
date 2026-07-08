@@ -10,7 +10,7 @@ Default Business Central environment:
 
 - Base URL: `https://businesscentral.dynamics.com/eb4005a6-4bc1-41d0-93be-6595f1a5bc80/BCDemoG`
 - Full URL pattern: `https://businesscentral.dynamics.com/eb4005a6-4bc1-41d0-93be-6595f1a5bc80/BCDemoG?company={companyName}`
-- Default company: `G7`
+- Current company: provide this per demo with `--company` or `BC_COMPANY`
 
 For future demos, the user may provide only the BC company name, such as `G8`. Build the full BC URL by replacing only the `company=` query parameter.
 
@@ -29,10 +29,11 @@ Microsoft documents that Business Central APIs use OAuth bearer tokens, and S2S 
 ```powershell
 $env:BC_CLIENT_ID = '<client id>'
 $env:BC_CLIENT_SECRET = '<client secret>'
+$company = '<company name>'
 
 & 'C:\Users\jack_\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe' `
   'C:\Github\BC Extensions\bc-repeatable\tools\bc_api.py' `
-  create-item --company G7 --description Test --shelf-no "Prospect Name" --unit-price 100 --uom PCS --replenishment Purchase
+  create-item --company $company --description Test --shelf-no "Prospect Name" --unit-price 100 --uom PCS --replenishment Purchase
 ```
 
 Attach a picture when available:
@@ -40,7 +41,7 @@ Attach a picture when available:
 ```powershell
 & 'C:\Users\jack_\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe' `
   'C:\Github\BC Extensions\bc-repeatable\tools\bc_api.py' `
-  create-item --company G7 --description "Metal Implant Bar" --shelf-no "Panthera" --unit-price 100 --uom PCS --replenishment Purchase --picture-path "C:\path\metal-implant-bar.jpg"
+  create-item --company $company --description "Metal Implant Bar" --shelf-no "Panthera" --unit-price 100 --uom PCS --replenishment Purchase --picture-path "C:\path\metal-implant-bar.jpg"
 ```
 
 In the Business Central web client, attach a picture from an item card with `Picture` > `Import` after saving the webpage product image locally.
@@ -52,7 +53,7 @@ Add Marketing Text when available:
 ```powershell
 & 'C:\Users\jack_\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe' `
   'C:\Github\BC Extensions\bc-repeatable\tools\bc_api.py' `
-  create-item --company G7 --number MIB-DOLDER-TI --description "Metal Implant Bar - Dolder - Ti" --shelf-no "Panthera" --unit-price 100 --uom PCS --replenishment Purchase --item-category-code METAL-BAR --marketing-text "Unrivaled`n`nOur bar is compatible with the vast majority of known implants, of course, but also with those of emerging and foreign companies. Offered with the longest warranty on the market, this product is simply unrivaled in the industry. Forget standardized bars: the Panthera Dental metallic bar is customized to satisfy the needs of your patients."
+  create-item --company $company --number MIB-DOLDER-TI --description "Metal Implant Bar - Dolder - Ti" --shelf-no "Panthera" --unit-price 100 --uom PCS --replenishment Purchase --item-category-code METAL-BAR --marketing-text "Unrivaled`n`nOur bar is compatible with the vast majority of known implants, of course, but also with those of emerging and foreign companies. Offered with the longest warranty on the market, this product is simply unrivaled in the industry. Forget standardized bars: the Panthera Dental metallic bar is customized to satisfy the needs of your patients."
 ```
 
 ## Create an item attribute
@@ -60,12 +61,28 @@ Add Marketing Text when available:
 ```powershell
 & 'C:\Users\jack_\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe' `
   'C:\Github\BC Extensions\bc-repeatable\tools\bc_api.py' `
-  create-item-attribute --company G7 --name "Available materials and finish types" --type Option --values Ti Co-Cr Silicoating Ionized Sandblast
+  create-item-attribute --company $company --name "Available materials and finish types" --type Option --values Ti Co-Cr Silicoating Ionized Sandblast
 ```
 
 After this is configured, user instructions can be short:
 
-`In G7 create purchased item "Test" UOM PCS price 100.`
+`In G8 create purchased item "Test" UOM PCS price 100.`
+
+## Company Selection
+
+Do not hard-code the Business Central company in automation.
+
+Use either:
+
+- `--company <companyName>` on each command.
+- `BC_COMPANY=<companyName>` for the current demo.
+
+For example:
+
+```powershell
+$company = 'G8'
+$env:BC_COMPANY = $company
+```
 
 ## Item Defaults
 

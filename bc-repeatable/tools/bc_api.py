@@ -12,7 +12,7 @@ import urllib.request
 TENANT_ID = os.environ.get("BC_TENANT_ID", "eb4005a6-4bc1-41d0-93be-6595f1a5bc80")
 ENVIRONMENT = os.environ.get("BC_ENVIRONMENT", "BCDemoG")
 BASE_URI = "https://api.businesscentral.dynamics.com"
-DEFAULT_COMPANY = os.environ.get("BC_COMPANY", "G7")
+DEFAULT_COMPANY = os.environ.get("BC_COMPANY")
 ITEM_TABLE_ID = 27
 
 
@@ -185,8 +185,9 @@ def assign_item_attribute(token, company_guid, item_number, attribute_name, attr
 
 
 def create_item(args):
+    selected_company = resolve_company(args.company)
     token = get_s2s_token()
-    cid = company_id(token, args.company)
+    cid = company_id(token, selected_company)
     payload = {
         "displayName": args.description,
         "type": "Inventory",
@@ -253,8 +254,9 @@ def create_item(args):
 
 
 def create_item_attribute(args):
+    selected_company = resolve_company(args.company)
     token = get_s2s_token()
-    cid = company_id(token, args.company)
+    cid = company_id(token, selected_company)
     attributes_url = f"{custom_api_root()}/companies({cid})/codexItemAttributes"
     values_url = f"{custom_api_root()}/companies({cid})/codexItemAttributeValues"
     existing = request("GET", odata_filter_url(attributes_url, f"name eq {odata_quote(args.name)}"), token).get("value", [])
@@ -278,6 +280,12 @@ def create_item_attribute(args):
         created_values.append(request("POST", values_url, token, {"attributeId": attribute_id, "value": value}))
 
     print(json.dumps({"attribute": attribute, "values": created_values}, indent=2))
+
+
+def resolve_company(company_name):
+    if company_name:
+        return company_name
+    raise SystemExit("Set --company or BC_COMPANY. Do not rely on a hard-coded company for demo automation.")
 
 
 def main():
