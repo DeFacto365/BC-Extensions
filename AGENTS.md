@@ -20,6 +20,17 @@ Default BC environment:
 
 For repeatable record creation, prefer `C:\Github\BC Extensions\bc-repeatable` over browser UI.
 
+## Repository Organization
+
+Keep the repository organized by separating shared automation from demo-specific material.
+
+- Put shared/base setup, standards, and reusable notes in `main/`.
+- Put repeatable automation code in `bc-repeatable/`.
+- Put each demo in `demos/{ProspectOrCompanyName}/`.
+- Store demo-specific files, images, downloaded logos, product pictures, scraped data, and request JSON in that demo folder.
+- Do not leave prospect-specific assets in the repository root or in shared folders.
+- For a new demo, create the demo folder first, then save all related files there.
+
 ## Business Central Company Information Defaults
 
 For each new demo, update the Business Central `Company Information` page before item/order creation when a prospect URL is provided.

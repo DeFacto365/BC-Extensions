@@ -2,6 +2,8 @@
 
 This folder is the repeatable path for Codex-created Business Central records.
 
+Keep this folder generic. Demo-specific request files, images, logos, and downloaded assets belong in `../demos/{ProspectOrCompanyName}/`, not in `bc-repeatable/`.
+
 ## Environment URL
 
 Default Business Central environment:
