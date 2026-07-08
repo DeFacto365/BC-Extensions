@@ -24,6 +24,17 @@ For future demos, the user may provide only the BC company name, such as `G8`. B
 
 Microsoft documents that Business Central APIs use OAuth bearer tokens, and S2S API calls use scope `https://api.businesscentral.dynamics.com/.default`.
 
+## Symbol Refresh
+
+Before every AL compile or publish, refresh symbols unattended:
+
+```powershell
+& 'C:\Users\jack_\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe' `
+  'C:\Github\BC Extensions\bc-repeatable\tools\refresh_symbols.py'
+```
+
+This calls Microsoft AL's local MCP `al_downloadsymbols` tool with `globalSourcesOnly=true` and forced re-downloads. It refreshes `.alpackages` from Microsoft global sources without prompting for login.
+
 ## Create an item
 
 ```powershell

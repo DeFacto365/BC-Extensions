@@ -20,6 +20,15 @@ Default BC environment:
 
 For repeatable record creation, prefer `C:\Github\BC Extensions\bc-repeatable` over browser UI.
 
+Before compiling or publishing the AL extension, refresh Business Central symbols unattended:
+
+```powershell
+& 'C:\Users\jack_\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe' `
+  'C:\Github\BC Extensions\bc-repeatable\tools\refresh_symbols.py'
+```
+
+This uses Microsoft AL's local MCP server with global sources and forced re-downloads so Application/System symbols stay current without asking the user.
+
 ## Repository Organization
 
 Keep the repository organized by separating shared automation from demo-specific material.
