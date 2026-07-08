@@ -78,3 +78,17 @@ User-provided per item:
 - Unit price
 - Replenishment system
 - UOM when not `PCS`
+
+## Sales Order Defaults
+
+For demo demand creation, use these defaults unless the user overrides them:
+
+- Create draft sales orders only; do not release or post.
+- Create one sales order per custom item.
+- Create one sales line per order.
+- Sales line `Type`: `Item`.
+- Sales line `Quantity`: `1`.
+- Sales line `Location Code`: `MAIN`.
+- Put the requested/random delivery date on the sales line `Shipment Date`.
+- Use the same selling price as customer `10000`.
+- For repeat batches, update the item numbers/list and keep the other defaults.

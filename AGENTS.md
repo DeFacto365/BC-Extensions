@@ -18,6 +18,19 @@ Default BC environment:
 
 For repeatable record creation, prefer `C:\Github\BC Extensions\bc-repeatable` over browser UI.
 
+## Business Central Sales Order Defaults
+
+For demo sales orders, create draft orders only unless the user explicitly asks to release or post.
+
+- Create one sales order per custom item.
+- Create one sales line per order.
+- Sales line `Type`: `Item`.
+- Sales line `Quantity`: `1`.
+- Sales line `Location Code`: `MAIN`.
+- Put the requested/random delivery date on the sales line `Shipment Date`.
+- Use the same selling price as customer `10000` unless the user gives another price rule.
+- Usually only the item number/list changes between demo sales-order batches.
+
 ## Business Central UI Notes
 
 To assign item attributes on an item card, use `Item` > `Attributes`.
