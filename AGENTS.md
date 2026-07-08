@@ -22,13 +22,19 @@ For repeatable record creation, prefer `C:\Github\BC Extensions\bc-repeatable` o
 
 For demo sales orders, create draft orders only unless the user explicitly asks to release or post.
 
+- This is a reusable demo database starter; use the same demo-demand pattern for new demos unless told otherwise.
 - Create one sales order per custom item.
 - Create one sales line per order.
 - Sales line `Type`: `Item`.
 - Sales line `Quantity`: `1`.
 - Sales line `Location Code`: `MAIN`.
 - Put the requested/random delivery date on the sales line `Shipment Date`.
+- Use random weekday dates between `2025-11-01` and `2025-12-20`.
 - Use the same selling price as customer `10000` unless the user gives another price rule.
+- Use customers `10000`, `20000`, and `30000`.
+- Default split: 5 orders for customer `10000`, 3 orders for customer `20000`, and 2 orders for customer `30000`.
+- Customer `10000` is the biggest customer and should get more orders.
+- Do not put `Codex` in `External Document Number`; use prospect/demo-facing values such as `PANTHERA-001`.
 - Usually only the item number/list changes between demo sales-order batches.
 
 ## Business Central UI Notes

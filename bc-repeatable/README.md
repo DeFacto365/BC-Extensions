@@ -83,6 +83,7 @@ User-provided per item:
 
 For demo demand creation, use these defaults unless the user overrides them:
 
+- This is a reusable demo database starter; use the same demo-demand pattern for new demos unless told otherwise.
 - Create draft sales orders only; do not release or post.
 - Create one sales order per custom item.
 - Create one sales line per order.
@@ -90,5 +91,10 @@ For demo demand creation, use these defaults unless the user overrides them:
 - Sales line `Quantity`: `1`.
 - Sales line `Location Code`: `MAIN`.
 - Put the requested/random delivery date on the sales line `Shipment Date`.
+- Use random weekday dates between `2025-11-01` and `2025-12-20`.
 - Use the same selling price as customer `10000`.
+- Use customers `10000`, `20000`, and `30000`.
+- Default split: 5 orders for customer `10000`, 3 orders for customer `20000`, and 2 orders for customer `30000`.
+- Customer `10000` is the biggest customer and should get more orders.
+- Do not put `Codex` in `External Document Number`; use prospect/demo-facing values such as `PANTHERA-001`.
 - For repeat batches, update the item numbers/list and keep the other defaults.
