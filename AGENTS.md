@@ -34,6 +34,7 @@ For demo sales orders, create draft orders only unless the user explicitly asks 
 - Use customers `10000`, `20000`, and `30000`.
 - Default split: 5 orders for customer `10000`, 3 orders for customer `20000`, and 2 orders for customer `30000`.
 - Customer `10000` is the biggest customer and should get more orders.
+- Do not create the orders grouped by customer. Alternate/shuffle customers so the list looks realistic, for example `10000`, `30000`, `20000`, `10000`, etc.
 - Do not put `Codex` in `External Document Number`; use prospect/demo-facing values such as `PANTHERA-001`.
 - Usually only the item number/list changes between demo sales-order batches.
 
