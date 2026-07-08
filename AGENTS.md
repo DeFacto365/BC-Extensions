@@ -18,6 +18,16 @@ Default BC environment:
 
 For repeatable record creation, prefer `C:\Github\BC Extensions\bc-repeatable` over browser UI.
 
+## Business Central Company Information Defaults
+
+For each new demo, update the Business Central `Company Information` page before item/order creation when a prospect URL is provided.
+
+- Use the prospect website URL to gather company information.
+- Update the `General` tab fields when confidently available, including company name, address, phone/email/web page, and related identity fields.
+- Update the company logo from the website when a clear official logo is available.
+- If the website does not clearly expose a field, ask instead of guessing.
+- Keep this as part of the new-demo setup procedure together with item and sales-order creation.
+
 ## Business Central Sales Order Defaults
 
 For demo sales orders, create draft orders only unless the user explicitly asks to release or post.
